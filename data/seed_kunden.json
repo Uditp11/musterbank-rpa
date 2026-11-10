@@ -1,0 +1,289 @@
+[
+  {
+    "kundennummer": "K10001",
+    "name": "Erika Beispiel",
+    "steuer_id": "65183024675",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10002",
+    "name": "Max Mustermann",
+    "steuer_id": "88160425375",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10003",
+    "name": "Lena Testfrau",
+    "steuer_id": "34167109526",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10004",
+    "name": "Jonas Probe",
+    "steuer_id": "59638201642",
+    "auftraege": [
+      {
+        "bestaetigungsnr": "FS-000122",
+        "referenz": "FSA-2025-0821",
+        "betrag": 1200,
+        "gemeinsam": "ja",
+        "gueltig_ab": "01.01.2026"
+      }
+    ]
+  },
+  {
+    "kundennummer": "K10005",
+    "name": "Mia Fiktiv",
+    "steuer_id": "64352021876",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10006",
+    "name": "Karla Muster",
+    "steuer_id": "13759784265",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10007",
+    "name": "Ben Vorlage",
+    "steuer_id": "23045786100",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10008",
+    "name": "Anna Fiktiv",
+    "steuer_id": "71069842310",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10009",
+    "name": "Emma Fiktiv",
+    "steuer_id": "69742805236",
+    "auftraege": [
+      {
+        "bestaetigungsnr": "FS-000117",
+        "referenz": "FSA-2025-0940",
+        "betrag": 600,
+        "gemeinsam": "nein",
+        "gueltig_ab": "01.01.2026"
+      }
+    ]
+  },
+  {
+    "kundennummer": "K10010",
+    "name": "David Testfall",
+    "steuer_id": "51438602490",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10011",
+    "name": "David Platzhalter",
+    "steuer_id": "81346579030",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10012",
+    "name": "Clara Muster",
+    "steuer_id": "38053972141",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10013",
+    "name": "Ben Erfunden",
+    "steuer_id": "91853074869",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10014",
+    "name": "Karla Vorlage",
+    "steuer_id": "48619723535",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10015",
+    "name": "Ida Erfunden",
+    "steuer_id": "71380254980",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10016",
+    "name": "Ben Fiktiv",
+    "steuer_id": "38254659018",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10017",
+    "name": "Jakob Fiktiv",
+    "steuer_id": "11962354703",
+    "auftraege": [
+      {
+        "bestaetigungsnr": "FS-000118",
+        "referenz": "FSA-2025-0869",
+        "betrag": 300,
+        "gemeinsam": "nein",
+        "gueltig_ab": "01.01.2026"
+      }
+    ]
+  },
+  {
+    "kundennummer": "K10018",
+    "name": "Greta Vorlage",
+    "steuer_id": "65917983040",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10019",
+    "name": "Anna Platzhalter",
+    "steuer_id": "78318405267",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10020",
+    "name": "Leon Erfunden",
+    "steuer_id": "47933586023",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10021",
+    "name": "Karla Erfunden",
+    "steuer_id": "20167804933",
+    "auftraege": [
+      {
+        "bestaetigungsnr": "FS-000119",
+        "referenz": "FSA-2025-0125",
+        "betrag": 200,
+        "gemeinsam": "nein",
+        "gueltig_ab": "01.01.2026"
+      },
+      {
+        "bestaetigungsnr": "FS-000120",
+        "referenz": "FSA-2025-0468",
+        "betrag": 250,
+        "gemeinsam": "nein",
+        "gueltig_ab": "01.01.2026"
+      }
+    ]
+  },
+  {
+    "kundennummer": "K10022",
+    "name": "David Fiktiv",
+    "steuer_id": "93047482159",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10023",
+    "name": "David Erfunden",
+    "steuer_id": "14625873106",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10024",
+    "name": "Ida Beispiel",
+    "steuer_id": "94184762059",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10025",
+    "name": "Leon Testfall",
+    "steuer_id": "52423870914",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10026",
+    "name": "Ida Testfall",
+    "steuer_id": "41859572606",
+    "auftraege": [
+      {
+        "bestaetigungsnr": "FS-000121",
+        "referenz": "FSA-2025-0137",
+        "betrag": 500,
+        "gemeinsam": "nein",
+        "gueltig_ab": "01.01.2026"
+      }
+    ]
+  },
+  {
+    "kundennummer": "K10027",
+    "name": "David Muster",
+    "steuer_id": "54872053199",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10028",
+    "name": "Karla Testfall",
+    "steuer_id": "24495386704",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10029",
+    "name": "Greta Erfunden",
+    "steuer_id": "92806941373",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10030",
+    "name": "Leon Probe",
+    "steuer_id": "50917684293",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10031",
+    "name": "Hannes Muster",
+    "steuer_id": "32898017458",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10032",
+    "name": "Leon Platzhalter",
+    "steuer_id": "16088394527",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10033",
+    "name": "Anna Beispiel",
+    "steuer_id": "30972581848",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10034",
+    "name": "Clara Platzhalter",
+    "steuer_id": "85072196394",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10035",
+    "name": "Karla Fiktiv",
+    "steuer_id": "59645703284",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10036",
+    "name": "Felix Fiktiv",
+    "steuer_id": "67032789515",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10037",
+    "name": "Jakob Muster",
+    "steuer_id": "84623761057",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10038",
+    "name": "Clara Fiktiv",
+    "steuer_id": "94680275126",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10039",
+    "name": "Leon Beispiel",
+    "steuer_id": "71985143202",
+    "auftraege": []
+  },
+  {
+    "kundennummer": "K10040",
+    "name": "Hannes Erfunden",
+    "steuer_id": "88516729042",
+    "auftraege": []
+  }
+]

@@ -1,0 +1,23 @@
+# Python
+.venv/
+__pycache__/
+.pytest_cache/
+*.pyc
+*.db
+.env
+
+# UiPath
+uipath/**/.local/
+uipath/**/.tmh/
+uipath/**/.entities/
+uipath/**/.storage/
+*.nupkg
+
+# Editor and tool files
+CLAUDE.md
+AGENTS.md
+.claude/
+.cursor/
+docs/superpowers/
+.vscode/
+.idea/

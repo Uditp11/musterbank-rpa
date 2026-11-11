@@ -24,6 +24,8 @@ Ich wollte verstehen, wie sich RPA im Betrieb anfühlt: Warteschlangen, Ausnahme
 
 ## Ablauf
 
+So soll der fertige Prozess laufen. Der Bot (Schritte 2 bis 6) ist in Arbeit und noch nicht im Repository.
+
 1. Die Fachabteilung liefert eine Excel-Liste mit Freistellungsaufträgen.
 2. Der Dispatcher legt jede Zeile als Eintrag in die Warteschlange `FSA_Eingang`.
 3. Der Performer (REFramework) holt einen Eintrag und prüft die Geschäftsregeln.
@@ -55,7 +57,7 @@ flowchart LR
 |---|---|
 | Einzelauftrag | höchstens 1.000 EUR |
 | Gemeinsamer Auftrag | höchstens 2.000 EUR |
-| Steuer-ID | 11 Ziffern, gültige Prüfziffer |
+| Steuer-ID | 11 Ziffern, erste Ziffer nicht 0, Ziffernregel und Prüfziffer gültig |
 | Gemeinsamer Auftrag | Steuer-ID des Partners nötig |
 | Summe mit bestehenden Aufträgen | bleibt im Limit |
 | Kunde | muss existieren |
@@ -68,18 +70,24 @@ Alle Fehlercodes und die Prüfreihenfolge stehen in [docs/Prozessbeschreibung.md
 run_app.bat
 ```
 
-Dann http://127.0.0.1:5000 öffnen. Login: `sachbearbeiter` / `demo` (Demo-Wert, kein echtes Passwort).
+Dann http://127.0.0.1:5000 öffnen. Login: `sachbearbeiter` / `demo` (Demo-Wert, kein echtes Passwort). Die App ist eine Demo und nur für den lokalen Betrieb gedacht.
+
+In PowerShell heißt der Aufruf `.un_app.bat`.
 
 Tests ausführen:
 
 ```
-python -m pytest -q
+.venv\Scripts\python -m pytest -q
 ```
+
+Testdaten neu erzeugen: `.venv\Scripts\python -m data.generate`
 
 - `run_app.bat v2`: startet die App mit umbenanntem Speichern-Button (`APP_VERSION=2`), um eine Störung nachzustellen.
 - `run_app.bat slow`: die Bestätigungsseite kommt erst nach 45 Sekunden (`SLOW_CONFIRM=1`), um eine Zeitüberschreitung nachzustellen.
 
 ## Betriebsdisziplin
+
+Diese Regeln gelten für den Bot, sobald er im Repository ist:
 
 - Zugangsdaten liegen als Assets in Orchestrator, nie im Code.
 - Es gibt getrennte Ordner für Test und Produktion.
@@ -108,7 +116,7 @@ Then open http://127.0.0.1:5000 and log in with the demo user `sachbearbeiter` /
 Run the tests:
 
 ```
-python -m pytest -q
+.venv\Scripts\python -m pytest -q
 ```
 
 ### Repository layout

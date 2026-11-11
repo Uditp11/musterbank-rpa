@@ -1,6 +1,6 @@
 # Prozessbeschreibung: Freistellungsaufträge
 
-Alle Daten und Kunden sind erfunden. Die Anwendung "Musterbank Backoffice" ist eine Demo, keine echte Bank. Der UiPath-Bot ist in Arbeit. Heute gibt es nur den Python-Teil: Regeln, Testdaten, Web-App und Tests.
+Alle Daten und Kunden sind erfunden. Die Anwendung "Musterbank Backoffice" ist eine Demo, keine echte Bank. Der UiPath-Bot ist in Arbeit. In Version 0.1.0 gibt es nur den Python-Teil: Regeln, Testdaten, Web-App und Tests.
 
 ## Ziel
 
@@ -44,7 +44,7 @@ Ein Auftrag kann mehrere Fehlercodes haben. Die Prüfung läuft in dieser Reihen
 | Nr. | Code | Bedeutung |
 |---|---|---|
 | 1 | KUNDE_UNBEKANNT | Die Kundennummer gibt es in der App nicht. |
-| 2 | STEUERID_FORMAT | Die Steuer-ID hat nicht genau 11 Ziffern oder die Ziffernregel ist verletzt. |
+| 2 | STEUERID_FORMAT | Die Steuer-ID hat nicht genau 11 Ziffern oder die erste Ziffer ist 0, oder die Ziffernregel ist verletzt (in den ersten 10 Ziffern kommt genau eine Ziffer zwei- oder dreimal vor, alle anderen höchstens einmal; drei gleiche Ziffern stehen nie direkt nebeneinander). |
 | 3 | STEUERID_PRUEFZIFFER | Die Prüfziffer der Steuer-ID stimmt nicht. |
 | 4 | BETRAG_UNGUELTIG | Der Betrag ist keine ganze Zahl größer als 0. |
 | 5 | PARTNER_FEHLT | Der Auftrag ist gemeinsam, aber die Steuer-ID des Partners fehlt. |

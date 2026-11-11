@@ -12,7 +12,7 @@
 | Prozessbeschreibung (`docs/`) | fertig |
 | Dispatcher und Performer (`uipath/`) | in Arbeit |
 | Störungsläufe mit Protokollen (`docs/stoerungen/`) | in Arbeit |
-| Betriebsbericht aus Orchestrator (`monitoring/`) | in Arbeit |
+| Betriebsbericht aus Orchestrator (`monitoring/`) | läuft |
 
 ## Was ist das
 

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block inhalt %}
+  <section>
+    <h2>Kundensuche</h2>
+    <form id="form-suche" method="get" action="{{ url_for('seiten.kundensuche') }}">
+      <label for="suche-kundennummer">Kundennummer</label>
+      <input id="suche-kundennummer" name="nr" value="{{ nr }}" autofocus>
+      <button id="btn-suchen" type="submit">Suchen</button>
+    </form>
+    {% if kunde %}
+    <p id="suchergebnis">Kunde gefunden: <a id="link-kunde" href="{{ url_for('seiten.kundenseite', nr=kunde.kundennummer) }}">{{ kunde.name }}</a></p>
+    {% elif gesucht %}
+    <p id="suchergebnis">Kunde nicht gefunden</p>
+    {% else %}
+    <p id="suchergebnis"></p>
+    {% endif %}
+  </section>
+{% endblock %}

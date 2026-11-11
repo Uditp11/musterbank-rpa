@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="de" translate="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="google" content="notranslate">
+<title>Musterbank Backoffice</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="banner">Fiktive Demo-Anwendung, keine echte Bank. Nur Testdaten.</div>
+<header>
+  <span>Musterbank Backoffice &middot; Freistellungsaufträge</span>
+  {% if session.benutzer %}
+  <nav>
+    <a id="nav-kundensuche" href="{{ url_for('seiten.kundensuche') }}">Kundensuche</a>
+    <a id="nav-abmelden" href="{{ url_for('seiten.logout') }}">Abmelden</a>
+  </nav>
+  {% endif %}
+</header>
+<main>
+{% block inhalt %}{% endblock %}
+</main>
+</body>
+</html>

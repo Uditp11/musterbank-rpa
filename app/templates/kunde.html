@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block inhalt %}
+  <section>
+    <h2>Kunde <span id="kunde-nummer">{{ kunde.kundennummer }}</span></h2>
+    <p>Name: <span id="kunde-name">{{ kunde.name }}</span><br>
+       Steuer-ID: <span id="kunde-steuer-id">{{ kunde.steuer_id }}</span></p>
+    <a id="link-neu" href="{{ url_for('seiten.freistellung_neu', nr=kunde.kundennummer) }}">Neuer Freistellungsauftrag</a>
+  </section>
+
+  <section>
+    <h2>Gespeicherte Aufträge</h2>
+    <table id="auftraege">
+      <thead>
+        <tr><th>Bestätigungsnr.</th><th>Referenz</th><th>Betrag</th><th>Gemeinsam</th><th>Gültig ab</th></tr>
+      </thead>
+      <tbody>
+        {% for a in auftraege %}
+        <tr>
+          <td>{{ a.bestaetigungsnr }}</td><td>{{ a.referenz }}</td><td>{{ a.betrag }}</td><td>{{ a.gemeinsam }}</td><td>{{ a.gueltig_ab }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

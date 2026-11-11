@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block inhalt %}
+  <section>
+    <h2>Neuer Freistellungsauftrag</h2>
+    {% if meldung %}<p id="meldung" class="fehler">{{ meldung }}</p>{% endif %}
+    <form id="form-freistellung" method="post">
+      <label for="kundennummer">Kundennummer</label>
+      <input id="kundennummer" name="kundennummer" value="{{ f.kundennummer }}">
+      <label for="steuer_id">Steuer-ID</label>
+      <input id="steuer_id" name="steuer_id" value="{{ f.steuer_id }}">
+      <label for="betrag">Betrag (EUR)</label>
+      <input id="betrag" name="betrag" value="{{ f.betrag }}">
+      <label for="gueltig_ab">Gültig ab</label>
+      <input id="gueltig_ab" name="gueltig_ab" value="{{ f.gueltig_ab }}">
+      <label for="gemeinsam">Gemeinsamer Auftrag</label>
+      <select id="gemeinsam" name="gemeinsam">
+        <option value="nein">nein</option>
+        <option value="ja"{% if f.gemeinsam == "ja" %} selected{% endif %}>ja</option>
+      </select>
+      <label for="steuer_id_partner">Steuer-ID Ehepartner</label>
+      <input id="steuer_id_partner" name="steuer_id_partner" value="{{ f.steuer_id_partner }}">
+      <label for="referenz">Referenz (Auftrags-ID)</label>
+      <input id="referenz" name="referenz" value="{{ f.referenz }}">
+      <div>
+        <button id="btn-abbrechen" type="button" onclick="this.form.reset()">Abbrechen</button>
+        {% if config.VERSION_2 %}
+        <button id="btn-uebernehmen" type="submit">Übernehmen</button>
+        {% else %}
+        <button id="btn-speichern" type="submit">Speichern</button>
+        {% endif %}
+      </div>
+    </form>
+  </section>
+{% endblock %}

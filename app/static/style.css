@@ -1,0 +1,14 @@
+body{font-family:Segoe UI,Arial,sans-serif;background:#eef1f4;margin:0;color:#1d2733}
+.banner{background:#7a2e2e;color:#fff;padding:6px 16px;font-size:13px}
+header{background:#24384d;color:#fff;padding:12px 16px;font-size:18px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+nav a{color:#fff;font-size:14px;margin-left:16px}
+main{max-width:820px;margin:16px auto;padding:0 16px;display:grid;gap:16px}
+section{background:#fff;border:1px solid #c9d1da;padding:16px}
+h2{margin:0 0 12px;font-size:16px}
+label{display:block;font-size:13px;margin-top:8px}
+input,select{width:260px;max-width:100%;box-sizing:border-box;padding:5px;font-size:14px}
+button{margin-top:12px;padding:6px 14px;font-size:14px}
+#bestaetigung{background:#e6f2e6;border:1px solid #9cc79c;padding:10px}
+.fehler{background:#fbe9e9;border:1px solid #d49a9a;padding:8px;margin:0 0 8px}
+table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{border:1px solid #c9d1da;padding:4px 6px;text-align:left}

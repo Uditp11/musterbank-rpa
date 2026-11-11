@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block inhalt %}
+  <section id="bestaetigung">
+    Auftrag gespeichert. Bestätigungsnummer: <b id="bestaetigungsnr">{{ auftrag.bestaetigungsnr }}</b>
+  </section>
+  <section>
+    <a id="link-kunde" href="{{ url_for('seiten.kundenseite', nr=auftrag.kundennummer) }}">Zum Kunden {{ auftrag.kundennummer }}</a>
+  </section>
+{% endblock %}

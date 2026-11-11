@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block inhalt %}
+  <section>
+    <h2>Anmeldung</h2>
+    {% if meldung %}<p id="meldung" class="fehler">{{ meldung }}</p>{% endif %}
+    <form id="form-login" method="post">
+      <label for="benutzer">Benutzer</label>
+      <input id="benutzer" name="benutzer" autofocus>
+      <label for="passwort">Passwort</label>
+      <input id="passwort" name="passwort" type="password">
+      <div>
+        <button id="btn-login" type="submit">Anmelden</button>
+      </div>
+    </form>
+  </section>
+{% endblock %}

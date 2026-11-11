@@ -10,7 +10,8 @@
 | Testdaten-Generator (`data/`) | läuft |
 | Musterbank Backoffice mit Fehlerschaltern (`app/`) | läuft |
 | Prozessbeschreibung (`docs/`) | fertig |
-| Dispatcher und Performer (`uipath/`) | in Arbeit |
+| Dispatcher und Performer 1.0.0 (`uipath/`) | läuft, siehe [Lauf vom 11.11.2026](docs/laeufe/2026-11-11-batch1.md) |
+| Regeltests in UiPath (`uipath/Performer/Tests/RunRuleTests.xaml`) | läuft |
 | Störungsläufe mit Protokollen (`docs/stoerungen/`) | in Arbeit |
 | Betriebsbericht aus Orchestrator (`monitoring/`) | läuft |
 
@@ -24,7 +25,7 @@ Ich wollte verstehen, wie sich RPA im Betrieb anfühlt: Warteschlangen, Ausnahme
 
 ## Ablauf
 
-So soll der fertige Prozess laufen. Der Bot (Schritte 2 bis 6) ist in Arbeit und noch nicht im Repository.
+Ein echter Lauf mit 30 Aufträgen ist in [docs/laeufe/2026-11-11-batch1.md](docs/laeufe/2026-11-11-batch1.md) beschrieben: 24 erfolgreich, 6 fachliche Ausnahmen.
 
 1. Die Fachabteilung liefert eine Excel-Liste mit Freistellungsaufträgen.
 2. Der Dispatcher legt jede Zeile als Eintrag in die Warteschlange `FSA_Eingang`.
@@ -87,7 +88,6 @@ Testdaten neu erzeugen: `.venv\Scripts\python -m data.generate`
 
 ## Betriebsdisziplin
 
-Diese Regeln gelten für den Bot, sobald er im Repository ist:
 
 - Zugangsdaten liegen als Assets in Orchestrator, nie im Code.
 - Es gibt getrennte Ordner für Test und Produktion.
@@ -103,7 +103,7 @@ KI für unstrukturierte Eingänge wie Kundenbriefe: Ein Modell könnte Angaben a
 
 Musterbank RPA is a learning project that models a fictional bank back office process. An Excel list of tax exemption orders (Freistellungsaufträge) is loaded by a UiPath Dispatcher into the Orchestrator queue `FSA_Eingang`. A Performer built on the REFramework validates the business rules and enters valid orders into a local Flask web app, the "Musterbank Backoffice". All data is synthetic, and there is no real bank behind it.
 
-The project shows queue-based processing, the difference between business exceptions (rule violations, no retry) and system exceptions (application problems, with retry), incident handling with written reports, and versioned releases. The Python part (rules, test data, web app, tests) is working. The UiPath bot is in progress.
+The project shows queue-based processing, the difference between business exceptions (rule violations, no retry) and system exceptions (application problems, with retry), incident handling with written reports, and versioned releases. The Python part and version 1.0.0 of the UiPath bot are working; a real run over 30 orders is documented in `docs/laeufe/`. Incident reports are in progress.
 
 ### Run it
 
@@ -126,8 +126,8 @@ app/                  Flask web app and the business rules (rules.py)
 data/                 generate.py: 30 synthetic orders, 6 deliberately invalid
 tests/                pytest tests
 run_app.bat           starts the web app
-uipath/Dispatcher/    loads the Excel list into the queue (in progress)
-uipath/Performer/     REFramework bot that processes the queue (in progress)
+uipath/Dispatcher/    loads the Excel list into the queue
+uipath/Performer/     REFramework bot that processes the queue
 docs/stoerungen/      incident reports (in progress)
 monitoring/           daily operations report from the Orchestrator queue
 ```

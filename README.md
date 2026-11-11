@@ -72,7 +72,7 @@ run_app.bat
 
 Dann http://127.0.0.1:5000 öffnen. Login: `sachbearbeiter` / `demo` (Demo-Wert, kein echtes Passwort). Die App ist eine Demo und nur für den lokalen Betrieb gedacht.
 
-In PowerShell heißt der Aufruf `.un_app.bat`.
+In PowerShell heißt der Aufruf `.\run_app.bat`.
 
 Tests ausführen:
 
@@ -129,5 +129,5 @@ run_app.bat           starts the web app
 uipath/Dispatcher/    loads the Excel list into the queue (in progress)
 uipath/Performer/     REFramework bot that processes the queue (in progress)
 docs/stoerungen/      incident reports (in progress)
-monitoring/           operations reporting (in progress)
+monitoring/           daily operations report from the Orchestrator queue
 ```

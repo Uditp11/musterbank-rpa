@@ -11,13 +11,12 @@ uipath/**/.local/
 uipath/**/.tmh/
 uipath/**/.entities/
 uipath/**/.storage/
+uipath/**/.settings/
+uipath/**/.objects/
+uipath/**/.screenshots/
+uipath/**/Exceptions_Screenshots/
 *.nupkg
 
-# Editor and tool files
-CLAUDE.md
-AGENTS.md
-.claude/
-.cursor/
-docs/superpowers/
+# Editor files
 .vscode/
 .idea/

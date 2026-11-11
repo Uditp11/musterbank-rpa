@@ -1,0 +1,86 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Initialize_Applications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uix="http://schemas.uipath.com/workflow/activities/uix" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:sdt="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:uasa="clr-namespace:UiPath.Activities.System.Arrays;assembly=UiPath.System.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>396,292</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>Initialization_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>GlobalConstantsNamespace</x:String>
+      <x:String>GlobalVariablesNamespace</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Management.Automation</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+    <x:String>UiPath.UIAutomationNext.Enums</x:String>
+<x:String>UiPath.UIAutomationCore.Contracts</x:String>
+<x:String>UiPath.UIAutomationNext.Models</x:String>
+<x:String>UiPath.UIAutomationNext.Activities</x:String>
+<x:String>UiPath.Shared.Activities</x:String>
+</sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.TypeConverter</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Linq</AssemblyReference>
+      <AssemblyReference>System.Management.Automation</AssemblyReference>
+      <AssemblyReference>System.ObjectModel</AssemblyReference>
+      <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Workflow</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+    <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+<AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+<AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
+<AssemblyReference>System.Data.Common</AssemblyReference>
+<AssemblyReference>System.Runtime.InteropServices</AssemblyReference>
+</sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="376,232" sap2010:WorkflowViewState.IdRef="Sequence_9"><Sequence.Variables><Variable x:TypeArguments="x:String" Name="strUrl" /><Variable x:TypeArguments="x:String" Name="strPruefung" /></Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log message (Initialize applications)" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Opening applications...&quot;]" /><ui:GetRobotAsset DisplayName="Get Asset Musterbank_URL" sap2010:Annotation.AnnotationText="Adresse der Anwendung aus dem Orchestrator-Ordner der Queue." AssetName="[in_Config(&quot;Musterbank_URL_Asset&quot;).ToString]" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" CacheStrategy="None" sap2010:WorkflowViewState.IdRef="GetRobotAsset_20"><ui:GetRobotAsset.Value><OutArgument x:TypeArguments="x:String">[strUrl]</OutArgument></ui:GetRobotAsset.Value></ui:GetRobotAsset><Assign DisplayName="URL in Config merken" sap2010:WorkflowViewState.IdRef="Assign_20"><Assign.To><OutArgument x:TypeArguments="x:Object">[in_Config("Musterbank_URL")]</OutArgument></Assign.To><Assign.Value><InArgument x:TypeArguments="x:Object">[strUrl.Trim.TrimEnd("/"c)]</InArgument></Assign.Value></Assign><uix:NApplicationCard AttachMode="ByInstance" CloseMode="Never" OpenMode="Always" DisplayName="Edge oeffnen und anmelden" HealingAgentBehavior="Disabled" InteractionMode="Simulate" ScopeGuid="a9fba927-34f5-4944-afa0-d539097c1df3"  Version="V2" sap2010:WorkflowViewState.IdRef="NApplicationCard_1"><uix:NApplicationCard.Body><ActivityAction x:TypeArguments="x:Object"><ActivityAction.Argument><DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" /></ActivityAction.Argument><Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_20"><Sequence.Variables><Variable x:TypeArguments="x:String" Name="strBenutzer" /><Variable x:TypeArguments="ss:SecureString" Name="secPasswort" /></Sequence.Variables><ui:GetRobotCredential DisplayName="Get Credential Musterbank_Login" AssetName="[in_Config(&quot;Musterbank_Login_Asset&quot;).ToString]" FolderPath="[in_Config(&quot;OrchestratorQueueFolder&quot;).ToString]" Username="[strBenutzer]" Password="[secPasswort]" TimeoutMS="{x:Null}" CacheStrategy="None" sap2010:WorkflowViewState.IdRef="GetRobotCredential_20" /><uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into Benutzer" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" InteractionMode="SameAsCard" ScopeIdentifier="a9fba927-34f5-4944-afa0-d539097c1df3" Text="[strBenutzer]" Version="V5" sap2010:WorkflowViewState.IdRef="NTypeInto_1"><uix:NTypeInto.Target><uix:TargetAnchorable ElementVisibilityArgument="None" FullSelectorArgument="&lt;webctrl id='benutzer' tag='INPUT' /&gt;" Guid="15ef0f03-a1ac-4a35-8618-1184c642b9cf" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Musterbank Backoffice' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" /></uix:NTypeInto.Target></uix:NTypeInto><uix:NTypeInto ActivateBefore="True" ClickBeforeMode="None" DisplayName="Type Into Passwort" EmptyFieldMode="SingleLine" HealingAgentBehavior="SameAsCard" InteractionMode="SameAsCard" ScopeIdentifier="a9fba927-34f5-4944-afa0-d539097c1df3" SecureText="[secPasswort]" Version="V5" sap2010:WorkflowViewState.IdRef="NTypeInto_2"><uix:NTypeInto.Target><uix:TargetAnchorable ElementVisibilityArgument="None" FullSelectorArgument="&lt;webctrl id='passwort' tag='INPUT' /&gt;" Guid="32a28505-6811-4cd1-af29-58a361e444bf" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Musterbank Backoffice' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" /></uix:NTypeInto.Target></uix:NTypeInto><uix:NClick ActivateBefore="True" ClickType="Single" DisplayName="Click Anmelden" HealingAgentBehavior="SameAsCard" InteractionMode="SameAsCard" KeyModifiers="None" MouseButton="Left" ScopeIdentifier="a9fba927-34f5-4944-afa0-d539097c1df3" Version="V5" sap2010:WorkflowViewState.IdRef="NClick_1"><uix:NClick.Target><uix:TargetAnchorable ElementVisibilityArgument="None" FullSelectorArgument="&lt;webctrl id='btn-login' tag='BUTTON' /&gt;" Guid="b528c392-0554-458f-80ba-c1933962b433" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Musterbank Backoffice' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" /></uix:NClick.Target></uix:NClick><uix:NGetText DisplayName="Get Text Suchergebnis (Anmeldung pruefen)" HealingAgentBehavior="SameAsCard" ScopeIdentifier="a9fba927-34f5-4944-afa0-d539097c1df3" TextString="[strPruefung]"  Version="V5" sap2010:WorkflowViewState.IdRef="NGetText_1"><uix:NGetText.Target><uix:TargetAnchorable ElementVisibilityArgument="None" FullSelectorArgument="&lt;webctrl id='suchergebnis' tag='P' /&gt;" Guid="0685dad6-13c4-45ea-b8fe-b065cf5b39b9" ScopeSelectorArgument="&lt;html app='msedge.exe' title='Musterbank Backoffice' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive" /></uix:NGetText.Target></uix:NGetText></Sequence></ActivityAction></uix:NApplicationCard.Body><uix:NApplicationCard.TargetApp><uix:TargetApp Area="0, 0, 0, 0" BrowserType="Edge" Selector="&lt;html app='msedge.exe' title='Musterbank Backoffice' /&gt;" Url="[strUrl.Trim.TrimEnd(&quot;/&quot;c) &amp; &quot;/login&quot;]" Version="V3" /></uix:NApplicationCard.TargetApp></uix:NApplicationCard><ui:LogMessage DisplayName="Log angemeldet" Level="Info" Message="[&quot;Anmeldung in der Anwendung erfolgreich.&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_20" />
+  </Sequence>
+</Activity>

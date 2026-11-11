@@ -1,0 +1,210 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Pruefe_Auftrag" mva:VisualBasic.Settings="{x:Null}"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib"
+xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib"
+xmlns:uasa="clr-namespace:UiPath.Activities.System.Arrays;assembly=UiPath.System.Activities"
+xmlns:ui="http://schemas.uipath.com/workflow/activities"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+sap2010:WorkflowViewState.IdRef="ActivityBuilder_1">
+    <x:Members>
+        <x:Property sap2010:Annotation.AnnotationText="Felder des Auftrags: Steuer_ID, Betrag, Gemeinsam, Steuer_ID_Partner. Passt direkt zu SpecificContent eines Queue Items." Name="in_Auftrag" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+        <x:Property sap2010:Annotation.AnnotationText="Summe der Auftraege, die der Kunde schon hat (ganze Euro)." Name="in_BestehendeSumme" Type="InArgument(x:Int32)" />
+        <x:Property sap2010:Annotation.AnnotationText="Alle Fehlercodes in fester Reihenfolge. Leere Liste bedeutet gueltig." Name="out_Fehlercodes" Type="OutArgument(scg:List(x:String))" />
+    </x:Members>
+    <TextExpression.NamespacesForImplementation>
+        <sco:Collection x:TypeArguments="x:String">
+            <x:String>System.Activities</x:String>
+            <x:String>System.Activities.Statements</x:String>
+            <x:String>System.Activities.Expressions</x:String>
+            <x:String>System.Activities.Validation</x:String>
+            <x:String>System.Activities.XamlIntegration</x:String>
+            <x:String>Microsoft.VisualBasic</x:String>
+            <x:String>Microsoft.VisualBasic.Activities</x:String>
+            <x:String>System</x:String>
+            <x:String>System.Collections</x:String>
+            <x:String>System.Collections.Generic</x:String>
+            <x:String>System.Collections.ObjectModel</x:String>
+            <x:String>System.Globalization</x:String>
+            <x:String>System.Linq</x:String>
+            <x:String>System.Text.RegularExpressions</x:String>
+            <x:String>UiPath.Core</x:String>
+            <x:String>UiPath.Core.Activities</x:String>
+            <x:String>System.Windows.Markup</x:String>
+        </sco:Collection>
+    </TextExpression.NamespacesForImplementation>
+    <TextExpression.ReferencesForImplementation>
+        <sco:Collection x:TypeArguments="AssemblyReference">
+            <AssemblyReference>System.Activities</AssemblyReference>
+            <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+            <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+            <AssemblyReference>mscorlib</AssemblyReference>
+            <AssemblyReference>System</AssemblyReference>
+            <AssemblyReference>System.Linq</AssemblyReference>
+            <AssemblyReference>System.Core</AssemblyReference>
+            <AssemblyReference>System.Collections</AssemblyReference>
+            <AssemblyReference>System.Runtime</AssemblyReference>
+            <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+            <AssemblyReference>System.Xaml</AssemblyReference>
+            <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+        </sco:Collection>
+    </TextExpression.ReferencesForImplementation>
+    <Sequence DisplayName="Pruefe Auftrag" sap2010:Annotation.AnnotationText="Geschaeftsregeln fuer einen Freistellungsauftrag. Reihenfolge: eigene Steuer-ID, Betrag, Partner, Limits. KUNDE_UNBEKANNT wird hier nicht geprueft." sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence.Variables>
+            <Variable x:TypeArguments="scg:List(x:String)" Name="listCodes" Default="[New List(Of String)]" />
+            <Variable x:TypeArguments="x:String" Name="strSteuerID" />
+            <Variable x:TypeArguments="x:String" Name="strBetrag" />
+            <Variable x:TypeArguments="x:String" Name="strPartner" />
+            <Variable x:TypeArguments="x:Boolean" Name="blnGemeinsam" />
+            <Variable x:TypeArguments="x:String" Name="strCode" />
+            <Variable x:TypeArguments="x:String" Name="strCodePartner" />
+            <Variable x:TypeArguments="x:Int64" Name="lngBetrag" />
+            <Variable x:TypeArguments="x:Int32" Name="intLimitEinzel" Default="1000" />
+            <Variable x:TypeArguments="x:Int32" Name="intLimitGemeinsam" Default="2000" />
+            <Variable x:TypeArguments="x:Int32" Name="intLimit" />
+        </Sequence.Variables>
+        <ui:MultipleAssign DisplayName="Felder lesen und trimmen" sap2010:Annotation.AnnotationText="Ein fehlendes Feld zaehlt als leer. Gemeinsam ist nur bei ja wahr." sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+            <ui:MultipleAssign.AssignOperations>
+                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                        <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[strSteuerID]</OutArgument>
+                        </ui:AssignOperation.To>
+                        <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[If(in_Auftrag.ContainsKey("Steuer_ID"), Convert.ToString(in_Auftrag("Steuer_ID")), "").Trim]</InArgument>
+                        </ui:AssignOperation.Value>
+                    </ui:AssignOperation>
+                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                        <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[strBetrag]</OutArgument>
+                        </ui:AssignOperation.To>
+                        <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[If(in_Auftrag.ContainsKey("Betrag"), Convert.ToString(in_Auftrag("Betrag"), CultureInfo.InvariantCulture), "").Trim]</InArgument>
+                        </ui:AssignOperation.Value>
+                    </ui:AssignOperation>
+                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+                        <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:Boolean">[blnGemeinsam]</OutArgument>
+                        </ui:AssignOperation.To>
+                        <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:Boolean">[If(in_Auftrag.ContainsKey("Gemeinsam"), Convert.ToString(in_Auftrag("Gemeinsam")), "").Trim.ToLowerInvariant = "ja"]</InArgument>
+                        </ui:AssignOperation.Value>
+                    </ui:AssignOperation>
+                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+                        <ui:AssignOperation.To>
+                            <OutArgument x:TypeArguments="x:String">[strPartner]</OutArgument>
+                        </ui:AssignOperation.To>
+                        <ui:AssignOperation.Value>
+                            <InArgument x:TypeArguments="x:String">[If(in_Auftrag.ContainsKey("Steuer_ID_Partner"), Convert.ToString(in_Auftrag("Steuer_ID_Partner")), "").Trim]</InArgument>
+                        </ui:AssignOperation.Value>
+                    </ui:AssignOperation>
+                </scg:List>
+            </ui:MultipleAssign.AssignOperations>
+        </ui:MultipleAssign>
+        <Sequence DisplayName="1 Eigene Steuer-ID" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <ui:InvokeWorkflowFile DisplayName="Pruefe_SteuerID (eigene)" WorkflowFileName="Pruefe_SteuerID.xaml" UnSafe="False" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+                <ui:InvokeWorkflowFile.Arguments>
+                    <InArgument x:TypeArguments="x:String" x:Key="in_SteuerID">[strSteuerID]</InArgument>
+                    <OutArgument x:TypeArguments="x:String" x:Key="out_Fehlercode">[strCode]</OutArgument>
+                </ui:InvokeWorkflowFile.Arguments>
+            </ui:InvokeWorkflowFile>
+            <If DisplayName="Eigene Steuer-ID ungueltig?" Condition="[Not String.IsNullOrEmpty(strCode)]" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Then>
+                    <Sequence DisplayName="Code merken" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                        <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="Code der Steuer-ID anhaengen" ItemIndex="{x:Null}" ItemToAppend="[strCode]" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_1" />
+                    </Sequence>
+                </If.Then>
+            </If>
+        </Sequence>
+        <Sequence DisplayName="2 Betrag" sap2010:WorkflowViewState.IdRef="Sequence_4">
+            <Assign DisplayName="Betrag als ganze Zahl" sap2010:Annotation.AnnotationText="Nur Ziffern sind erlaubt (ganze Euro). 0 bedeutet: Betrag ungueltig." sap2010:WorkflowViewState.IdRef="Assign_1">
+                <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int64">[lngBetrag]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int64">[If(Regex.IsMatch(strBetrag, "^[0-9]{1,18}$"), Long.Parse(strBetrag), 0)]</InArgument>
+                </Assign.Value>
+            </Assign>
+            <If DisplayName="Betrag ungueltig?" Condition="[lngBetrag &lt;= 0]" sap2010:WorkflowViewState.IdRef="If_2">
+                <If.Then>
+                    <Sequence DisplayName="Code merken" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                        <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="BETRAG_UNGUELTIG anhaengen" ItemIndex="{x:Null}" ItemToAppend="BETRAG_UNGUELTIG" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_2" />
+                    </Sequence>
+                </If.Then>
+            </If>
+        </Sequence>
+        <If DisplayName="3 Gemeinsamer Auftrag?" sap2010:Annotation.AnnotationText="Der Partner wird nur bei Gemeinsam = ja geprueft." Condition="[blnGemeinsam]" sap2010:WorkflowViewState.IdRef="If_3">
+            <If.Then>
+                <Sequence DisplayName="Partner pruefen" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                    <If DisplayName="Partner Steuer-ID fehlt?" Condition="[String.IsNullOrEmpty(strPartner)]" sap2010:WorkflowViewState.IdRef="If_4">
+                        <If.Then>
+                            <Sequence DisplayName="Partner fehlt" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="PARTNER_FEHLT anhaengen" ItemIndex="{x:Null}" ItemToAppend="PARTNER_FEHLT" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_3" />
+                            </Sequence>
+                        </If.Then>
+                        <If.Else>
+                            <Sequence DisplayName="Partner Steuer-ID pruefen" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                <ui:InvokeWorkflowFile DisplayName="Pruefe_SteuerID (Partner)" WorkflowFileName="Pruefe_SteuerID.xaml" UnSafe="False" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2">
+                                    <ui:InvokeWorkflowFile.Arguments>
+                                        <InArgument x:TypeArguments="x:String" x:Key="in_SteuerID">[strPartner]</InArgument>
+                                        <OutArgument x:TypeArguments="x:String" x:Key="out_Fehlercode">[strCodePartner]</OutArgument>
+                                    </ui:InvokeWorkflowFile.Arguments>
+                                </ui:InvokeWorkflowFile>
+                                <If DisplayName="Partner Steuer-ID ungueltig?" Condition="[Not String.IsNullOrEmpty(strCodePartner)]" sap2010:WorkflowViewState.IdRef="If_5">
+                                    <If.Then>
+                                        <Sequence DisplayName="Code merken" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                            <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="PARTNER_STEUERID anhaengen" ItemIndex="{x:Null}" ItemToAppend="PARTNER_STEUERID" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_4" />
+                                        </Sequence>
+                                    </If.Then>
+                                </If>
+                            </Sequence>
+                        </If.Else>
+                    </If>
+                </Sequence>
+            </If.Then>
+        </If>
+        <If DisplayName="4 Limits (nur bei gueltigem Betrag)" Condition="[lngBetrag &gt; 0]" sap2010:WorkflowViewState.IdRef="If_6">
+            <If.Then>
+                <Sequence DisplayName="Limits pruefen" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                    <Assign DisplayName="Limit waehlen (1000 einzeln, 2000 gemeinsam)" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                            <OutArgument x:TypeArguments="x:Int32">[intLimit]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                            <InArgument x:TypeArguments="x:Int32">[If(blnGemeinsam, intLimitGemeinsam, intLimitEinzel)]</InArgument>
+                        </Assign.Value>
+                    </Assign>
+                    <If DisplayName="Auftrag allein ueber dem Limit?" Condition="[lngBetrag &gt; intLimit]" sap2010:WorkflowViewState.IdRef="If_7">
+                        <If.Then>
+                            <Sequence DisplayName="Einzelauftrag zu hoch" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="LIMIT_EINZEL oder LIMIT_GEMEINSAM anhaengen" ItemIndex="{x:Null}" ItemToAppend="[If(blnGemeinsam, &quot;LIMIT_GEMEINSAM&quot;, &quot;LIMIT_EINZEL&quot;)]" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_5" />
+                            </Sequence>
+                        </If.Then>
+                        <If.Else>
+                            <Sequence DisplayName="Summe mit bestehenden Auftraegen" sap2010:WorkflowViewState.IdRef="Sequence_12">
+                                <If DisplayName="Bestehende Summe + Betrag ueber dem Limit?" Condition="[in_BestehendeSumme + lngBetrag &gt; intLimit]" sap2010:WorkflowViewState.IdRef="If_8">
+                                    <If.Then>
+                                        <Sequence DisplayName="Gesamtlimit ueberschritten" sap2010:WorkflowViewState.IdRef="Sequence_13">
+                                            <uasa:AppendItemToList x:TypeArguments="x:String" DisplayName="LIMIT_GESAMT anhaengen" ItemIndex="{x:Null}" ItemToAppend="LIMIT_GESAMT" List="[listCodes]" sap2010:WorkflowViewState.IdRef="AppendItemToList`1_6" />
+                                        </Sequence>
+                                    </If.Then>
+                                </If>
+                            </Sequence>
+                        </If.Else>
+                    </If>
+                </Sequence>
+            </If.Then>
+        </If>
+        <Assign DisplayName="Ergebnis zurueckgeben" sap2010:WorkflowViewState.IdRef="Assign_3">
+            <Assign.To>
+                <OutArgument x:TypeArguments="scg:List(x:String)">[out_Fehlercodes]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+                <InArgument x:TypeArguments="scg:List(x:String)">[listCodes]</InArgument>
+            </Assign.Value>
+        </Assign>
+    </Sequence>
+</Activity>

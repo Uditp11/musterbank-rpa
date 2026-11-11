@@ -1,0 +1,233 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Pruefe_SteuerID" mva:VisualBasic.Settings="{x:Null}"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+xmlns:sc="clr-namespace:System.Collections;assembly=System.Private.CoreLib"
+xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib"
+xmlns:ui="http://schemas.uipath.com/workflow/activities"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+sap2010:WorkflowViewState.IdRef="ActivityBuilder_1">
+    <x:Members>
+        <x:Property sap2010:Annotation.AnnotationText="Steuer-ID als Text, schon getrimmt." Name="in_SteuerID" Type="InArgument(x:String)" />
+        <x:Property sap2010:Annotation.AnnotationText="Leer wenn gueltig, sonst STEUERID_FORMAT oder STEUERID_PRUEFZIFFER." Name="out_Fehlercode" Type="OutArgument(x:String)" />
+    </x:Members>
+    <TextExpression.NamespacesForImplementation>
+        <sco:Collection x:TypeArguments="x:String">
+            <x:String>System.Activities</x:String>
+            <x:String>System.Activities.Statements</x:String>
+            <x:String>System.Activities.Expressions</x:String>
+            <x:String>System.Activities.Validation</x:String>
+            <x:String>System.Activities.XamlIntegration</x:String>
+            <x:String>Microsoft.VisualBasic</x:String>
+            <x:String>Microsoft.VisualBasic.Activities</x:String>
+            <x:String>System</x:String>
+            <x:String>System.Collections</x:String>
+            <x:String>System.Collections.Generic</x:String>
+            <x:String>System.Collections.ObjectModel</x:String>
+            <x:String>System.Linq</x:String>
+            <x:String>System.Text.RegularExpressions</x:String>
+            <x:String>UiPath.Core</x:String>
+            <x:String>UiPath.Core.Activities</x:String>
+            <x:String>System.Windows.Markup</x:String>
+        </sco:Collection>
+    </TextExpression.NamespacesForImplementation>
+    <TextExpression.ReferencesForImplementation>
+        <sco:Collection x:TypeArguments="AssemblyReference">
+            <AssemblyReference>System.Activities</AssemblyReference>
+            <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+            <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+            <AssemblyReference>mscorlib</AssemblyReference>
+            <AssemblyReference>System</AssemblyReference>
+            <AssemblyReference>System.Linq</AssemblyReference>
+            <AssemblyReference>System.Core</AssemblyReference>
+            <AssemblyReference>System.Collections</AssemblyReference>
+            <AssemblyReference>System.Runtime</AssemblyReference>
+            <AssemblyReference>System.Text.RegularExpressions</AssemblyReference>
+            <AssemblyReference>System.Xaml</AssemblyReference>
+            <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+        </sco:Collection>
+    </TextExpression.ReferencesForImplementation>
+    <Sequence DisplayName="Pruefe Steuer-ID" sap2010:Annotation.AnnotationText="Prueft Format, Wiederholungsregel und Pruefziffer einer Steuer-ID. Ergebnis leer bedeutet gueltig." sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence.Variables>
+            <Variable x:TypeArguments="x:String" Name="strErste10" />
+            <Variable x:TypeArguments="x:Int32" Name="intMehrfach" Default="0" />
+            <Variable x:TypeArguments="x:Boolean" Name="blnWiederholungFalsch" Default="False" />
+            <Variable x:TypeArguments="x:Int32" Name="intProdukt" Default="10" />
+            <Variable x:TypeArguments="x:Int32" Name="intSumme" />
+            <Variable x:TypeArguments="x:Int32" Name="intPruefziffer" />
+        </Sequence.Variables>
+        <Assign DisplayName="Ergebnis leer setzen" sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+                <OutArgument x:TypeArguments="x:String">[out_Fehlercode]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+                <InArgument x:TypeArguments="x:String">[String.Empty]</InArgument>
+            </Assign.Value>
+        </Assign>
+        <If DisplayName="Format falsch?" sap2010:Annotation.AnnotationText="Genau 11 Ziffern, die erste Ziffer ist nicht 0." Condition="[in_SteuerID Is Nothing OrElse Not Regex.IsMatch(in_SteuerID, &quot;^[1-9][0-9]{10}$&quot;)]" sap2010:WorkflowViewState.IdRef="If_1">
+            <If.Then>
+                <Sequence DisplayName="Format falsch" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                    <Assign DisplayName="Code STEUERID_FORMAT" sap2010:WorkflowViewState.IdRef="Assign_2">
+                        <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[out_Fehlercode]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">STEUERID_FORMAT</InArgument>
+                        </Assign.Value>
+                    </Assign>
+                </Sequence>
+            </If.Then>
+            <If.Else>
+                <Sequence DisplayName="Ziffern pruefen" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                    <Assign DisplayName="Erste 10 Ziffern" sap2010:WorkflowViewState.IdRef="Assign_3">
+                        <Assign.To>
+                            <OutArgument x:TypeArguments="x:String">[strErste10]</OutArgument>
+                        </Assign.To>
+                        <Assign.Value>
+                            <InArgument x:TypeArguments="x:String">[in_SteuerID.Substring(0, 10)]</InArgument>
+                        </Assign.Value>
+                    </Assign>
+                    <ui:ForEach x:TypeArguments="x:String" DisplayName="Fuer jede Ziffer 0 bis 9" sap2010:Annotation.AnnotationText="Wiederholungsregel: genau eine Ziffer kommt 2 oder 3 mal vor, alle anderen hoechstens einmal. Drei gleiche stehen nie direkt nebeneinander." sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+                        <ui:ForEach.Values>
+                            <InArgument x:TypeArguments="sc:IEnumerable">["0 1 2 3 4 5 6 7 8 9".Split(" "c)]</InArgument>
+                        </ui:ForEach.Values>
+                        <ui:ForEach.Body>
+                            <ActivityAction x:TypeArguments="x:String">
+                                <ActivityAction.Argument>
+                                    <DelegateInArgument x:TypeArguments="x:String" Name="ziffer" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Ziffer zaehlen" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <Sequence.Variables>
+                                        <Variable x:TypeArguments="x:Int32" Name="intAnzahl" />
+                                    </Sequence.Variables>
+                                    <Assign DisplayName="Wie oft kommt die Ziffer vor?" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                        <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Int32">[intAnzahl]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Int32">[strErste10.Length - strErste10.Replace(ziffer, "").Length]</InArgument>
+                                        </Assign.Value>
+                                    </Assign>
+                                    <If DisplayName="Ziffer mehrfach?" Condition="[intAnzahl &gt; 1]" sap2010:WorkflowViewState.IdRef="If_2">
+                                        <If.Then>
+                                            <Sequence DisplayName="Mehrfache Ziffer merken" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                                <Assign DisplayName="Zaehler mehrfache Ziffern + 1" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                                    <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[intMehrfach]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">[intMehrfach + 1]</InArgument>
+                                                    </Assign.Value>
+                                                </Assign>
+                                                <If DisplayName="Mehr als 3 mal oder 3 nebeneinander?" Condition="[intAnzahl &gt; 3 OrElse strErste10.Contains(ziffer &amp; ziffer &amp; ziffer)]" sap2010:WorkflowViewState.IdRef="If_3">
+                                                    <If.Then>
+                                                        <Sequence DisplayName="Regel verletzt" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                                            <Assign DisplayName="Wiederholung falsch merken" sap2010:WorkflowViewState.IdRef="Assign_6">
+                                                                <Assign.To>
+                                                                    <OutArgument x:TypeArguments="x:Boolean">[blnWiederholungFalsch]</OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                    <InArgument x:TypeArguments="x:Boolean">[True]</InArgument>
+                                                                </Assign.Value>
+                                                            </Assign>
+                                                        </Sequence>
+                                                    </If.Then>
+                                                </If>
+                                            </Sequence>
+                                        </If.Then>
+                                    </If>
+                                </Sequence>
+                            </ActivityAction>
+                        </ui:ForEach.Body>
+                    </ui:ForEach>
+                    <If DisplayName="Wiederholungsregel verletzt?" Condition="[intMehrfach &lt;&gt; 1 OrElse blnWiederholungFalsch]" sap2010:WorkflowViewState.IdRef="If_4">
+                        <If.Then>
+                            <Sequence DisplayName="Wiederholung falsch" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                <Assign DisplayName="Code STEUERID_FORMAT (Wiederholung)" sap2010:WorkflowViewState.IdRef="Assign_7">
+                                    <Assign.To>
+                                        <OutArgument x:TypeArguments="x:String">[out_Fehlercode]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                        <InArgument x:TypeArguments="x:String">STEUERID_FORMAT</InArgument>
+                                    </Assign.Value>
+                                </Assign>
+                            </Sequence>
+                        </If.Then>
+                        <If.Else>
+                            <Sequence DisplayName="Pruefziffer berechnen" sap2010:Annotation.AnnotationText="ISO/IEC 7064, MOD 11,10. Start mit Produkt 10." sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                <ui:ForEach x:TypeArguments="x:Char" DisplayName="Fuer jede der ersten 10 Ziffern" sap2010:WorkflowViewState.IdRef="ForEach`1_2">
+                                    <ui:ForEach.Values>
+                                        <InArgument x:TypeArguments="sc:IEnumerable">[strErste10.ToCharArray]</InArgument>
+                                    </ui:ForEach.Values>
+                                    <ui:ForEach.Body>
+                                        <ActivityAction x:TypeArguments="x:Char">
+                                            <ActivityAction.Argument>
+                                                <DelegateInArgument x:TypeArguments="x:Char" Name="zeichen" />
+                                            </ActivityAction.Argument>
+                                            <Sequence DisplayName="Rechenschritt" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                                                <Assign DisplayName="Summe = (Ziffer + Produkt) Mod 10" sap2010:WorkflowViewState.IdRef="Assign_8">
+                                                    <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[intSumme]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">[(Integer.Parse(zeichen.ToString) + intProdukt) Mod 10]</InArgument>
+                                                    </Assign.Value>
+                                                </Assign>
+                                                <If DisplayName="Summe ist 0?" Condition="[intSumme = 0]" sap2010:WorkflowViewState.IdRef="If_5">
+                                                    <If.Then>
+                                                        <Sequence DisplayName="Summe auf 10 setzen" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                                                            <Assign DisplayName="Summe = 10" sap2010:WorkflowViewState.IdRef="Assign_9">
+                                                                <Assign.To>
+                                                                    <OutArgument x:TypeArguments="x:Int32">[intSumme]</OutArgument>
+                                                                </Assign.To>
+                                                                <Assign.Value>
+                                                                    <InArgument x:TypeArguments="x:Int32">[10]</InArgument>
+                                                                </Assign.Value>
+                                                            </Assign>
+                                                        </Sequence>
+                                                    </If.Then>
+                                                </If>
+                                                <Assign DisplayName="Produkt = (Summe * 2) Mod 11" sap2010:WorkflowViewState.IdRef="Assign_10">
+                                                    <Assign.To>
+                                                        <OutArgument x:TypeArguments="x:Int32">[intProdukt]</OutArgument>
+                                                    </Assign.To>
+                                                    <Assign.Value>
+                                                        <InArgument x:TypeArguments="x:Int32">[(intSumme * 2) Mod 11]</InArgument>
+                                                    </Assign.Value>
+                                                </Assign>
+                                            </Sequence>
+                                        </ActivityAction>
+                                    </ui:ForEach.Body>
+                                </ui:ForEach>
+                                <Assign DisplayName="Pruefziffer = (11 - Produkt) Mod 10" sap2010:WorkflowViewState.IdRef="Assign_11">
+                                    <Assign.To>
+                                        <OutArgument x:TypeArguments="x:Int32">[intPruefziffer]</OutArgument>
+                                    </Assign.To>
+                                    <Assign.Value>
+                                        <InArgument x:TypeArguments="x:Int32">[(11 - intProdukt) Mod 10]</InArgument>
+                                    </Assign.Value>
+                                </Assign>
+                                <If DisplayName="Pruefziffer falsch?" Condition="[intPruefziffer &lt;&gt; Integer.Parse(in_SteuerID.Substring(10, 1))]" sap2010:WorkflowViewState.IdRef="If_6">
+                                    <If.Then>
+                                        <Sequence DisplayName="Pruefziffer falsch" sap2010:WorkflowViewState.IdRef="Sequence_11">
+                                            <Assign DisplayName="Code STEUERID_PRUEFZIFFER" sap2010:WorkflowViewState.IdRef="Assign_12">
+                                                <Assign.To>
+                                                    <OutArgument x:TypeArguments="x:String">[out_Fehlercode]</OutArgument>
+                                                </Assign.To>
+                                                <Assign.Value>
+                                                    <InArgument x:TypeArguments="x:String">STEUERID_PRUEFZIFFER</InArgument>
+                                                </Assign.Value>
+                                            </Assign>
+                                        </Sequence>
+                                    </If.Then>
+                                </If>
+                            </Sequence>
+                        </If.Else>
+                    </If>
+                </Sequence>
+            </If.Else>
+        </If>
+    </Sequence>
+</Activity>

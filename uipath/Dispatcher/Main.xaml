@@ -1,0 +1,189 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib"
+xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common"
+xmlns:this="clr-namespace:"
+xmlns:ui="http://schemas.uipath.com/workflow/activities"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+this:Main.in_Eingabedatei="..\..\data\Eingang_Batch1.xlsx"
+this:Main.in_OrchestratorOrdner="Musterbank_Test"
+this:Main.in_QueueName="FSA_Eingang"
+sap2010:WorkflowViewState.IdRef="ActivityBuilder_1">
+    <x:Members>
+        <x:Property Name="in_Eingabedatei" Type="InArgument(x:String)" />
+        <x:Property Name="in_OrchestratorOrdner" Type="InArgument(x:String)" />
+        <x:Property Name="in_QueueName" Type="InArgument(x:String)" />
+    </x:Members>
+    <TextExpression.NamespacesForImplementation>
+        <sco:Collection x:TypeArguments="x:String">
+            <x:String>System.Activities</x:String>
+            <x:String>System.Activities.Statements</x:String>
+            <x:String>System.Activities.Expressions</x:String>
+            <x:String>System.Activities.Validation</x:String>
+            <x:String>System.Activities.XamlIntegration</x:String>
+            <x:String>Microsoft.VisualBasic</x:String>
+            <x:String>Microsoft.VisualBasic.Activities</x:String>
+            <x:String>System</x:String>
+            <x:String>System.Collections</x:String>
+            <x:String>System.Collections.Generic</x:String>
+            <x:String>System.Collections.ObjectModel</x:String>
+            <x:String>System.Data</x:String>
+            <x:String>System.Diagnostics</x:String>
+            <x:String>System.Drawing</x:String>
+            <x:String>System.Globalization</x:String>
+            <x:String>System.IO</x:String>
+            <x:String>System.Linq</x:String>
+            <x:String>System.Net.Mail</x:String>
+            <x:String>System.Xml</x:String>
+            <x:String>System.Xml.Linq</x:String>
+            <x:String>UiPath.Core</x:String>
+            <x:String>UiPath.Core.Activities</x:String>
+            <x:String>System.Windows.Markup</x:String>
+        </sco:Collection>
+    </TextExpression.NamespacesForImplementation>
+    <TextExpression.ReferencesForImplementation>
+        <sco:Collection x:TypeArguments="AssemblyReference">
+            <AssemblyReference>System.Activities</AssemblyReference>
+            <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+            <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+            <AssemblyReference>mscorlib</AssemblyReference>
+            <AssemblyReference>System.Data</AssemblyReference>
+            <AssemblyReference>System</AssemblyReference>
+            <AssemblyReference>System.Linq</AssemblyReference>
+            <AssemblyReference>System.Data.Common</AssemblyReference>
+            <AssemblyReference>System.Drawing</AssemblyReference>
+            <AssemblyReference>System.Drawing.Primitives</AssemblyReference>
+            <AssemblyReference>System.Drawing.Common</AssemblyReference>
+            <AssemblyReference>System.Core</AssemblyReference>
+            <AssemblyReference>System.Xml</AssemblyReference>
+            <AssemblyReference>System.Xml.Linq</AssemblyReference>
+            <AssemblyReference>PresentationFramework</AssemblyReference>
+            <AssemblyReference>WindowsBase</AssemblyReference>
+            <AssemblyReference>PresentationCore</AssemblyReference>
+            <AssemblyReference>System.Xaml</AssemblyReference>
+            <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+            <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+            <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+            <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+            <AssemblyReference>System.Net.Mail</AssemblyReference>
+            <AssemblyReference>System.Runtime</AssemblyReference>
+        </sco:Collection>
+    </TextExpression.ReferencesForImplementation>
+    <Sequence DisplayName="Dispatcher" sap2010:Annotation.AnnotationText="Liest das Blatt Eingang und legt je Zeile ein Queue Item an. Doppelte Referenzen werden gezaehlt und uebersprungen." sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence.Variables>
+            <Variable x:TypeArguments="sd:DataTable" Name="dt_Eingang" />
+            <Variable x:TypeArguments="x:Int32" Name="intHinzugefuegt" Default="0" />
+            <Variable x:TypeArguments="x:Int32" Name="intUebersprungen" Default="0" />
+        </Sequence.Variables>
+        <ui:LogMessage Level="Info" DisplayName="Log Start" Message="[&quot;Dispatcher startet: Datei &quot; &amp; in_Eingabedatei &amp; &quot;, Ordner &quot; &amp; in_OrchestratorOrdner &amp; &quot;, Queue &quot; &amp; in_QueueName]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+        <ui:ReadRange DisplayName="Blatt Eingang lesen" sap2010:Annotation.AnnotationText="Workbook-Aktivitaet, braucht kein installiertes Excel." AddHeaders="True" DataTable="[dt_Eingang]" Range="{x:Null}" SheetName="Eingang" WorkbookPath="[in_Eingabedatei]" sap2010:WorkflowViewState.IdRef="ReadRange_1" />
+        <ui:ForEachRow DisplayName="Fuer jede Zeile" ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[dt_Eingang]" sap2010:WorkflowViewState.IdRef="ForEachRow_1">
+            <ui:ForEachRow.Body>
+                <ActivityAction x:TypeArguments="sd:DataRow">
+                    <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="sd:DataRow" Name="CurrentRow" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Zeile verarbeiten" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                        <Sequence.Variables>
+                            <Variable x:TypeArguments="x:String" Name="strAuftragsID" />
+                            <Variable x:TypeArguments="x:String" Name="strBetrag" />
+                        </Sequence.Variables>
+                        <Assign DisplayName="Auftrags_ID lesen" sap2010:WorkflowViewState.IdRef="Assign_1">
+                            <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[strAuftragsID]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[CurrentRow("Auftrags_ID").ToString.Trim]</InArgument>
+                            </Assign.Value>
+                        </Assign>
+                        <Assign DisplayName="Betrag als Text lesen" sap2010:WorkflowViewState.IdRef="Assign_2">
+                            <Assign.To>
+                                <OutArgument x:TypeArguments="x:String">[strBetrag]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                                <InArgument x:TypeArguments="x:String">[Convert.ToString(CurrentRow("Betrag"), CultureInfo.InvariantCulture).Trim]</InArgument>
+                            </Assign.Value>
+                        </Assign>
+                        <If DisplayName="Betrag ist eine Zahl?" sap2010:Annotation.AnnotationText="Zahl mit invarianter Kultur lesen (Punkt als Dezimalzeichen). Kein deutsches Zahlenformat." Condition="[Double.TryParse(strBetrag, NumberStyles.Any, CultureInfo.InvariantCulture, Nothing)]" sap2010:WorkflowViewState.IdRef="If_1">
+                            <If.Then>
+                                <Sequence DisplayName="Betrag einheitlich schreiben" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                                    <Assign DisplayName="Betrag normalisieren" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                        <Assign.To>
+                                            <OutArgument x:TypeArguments="x:String">[strBetrag]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                            <InArgument x:TypeArguments="x:String">[Double.Parse(strBetrag, NumberStyles.Any, CultureInfo.InvariantCulture).ToString(CultureInfo.InvariantCulture)]</InArgument>
+                                        </Assign.Value>
+                                    </Assign>
+                                </Sequence>
+                            </If.Then>
+                        </If>
+                        <TryCatch DisplayName="Queue Item anlegen" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+                            <TryCatch.Try>
+                                <Sequence DisplayName="Try" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <ui:AddQueueItem DisplayName="Add Queue Item (Referenz = Auftrags_ID)" FolderPath="[in_OrchestratorOrdner]" QueueType="[in_QueueName]" Reference="[strAuftragsID]" Priority="Normal" TimeoutMS="{x:Null}" sap2010:WorkflowViewState.IdRef="AddQueueItem_1">
+                                        <ui:AddQueueItem.ItemInformation>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Auftrags_ID">[strAuftragsID]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Kundennummer">[CurrentRow("Kundennummer").ToString.Trim]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Name">[CurrentRow("Name").ToString.Trim]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Steuer_ID">[CurrentRow("Steuer_ID").ToString.Trim]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Betrag">[strBetrag]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Gemeinsam">[CurrentRow("Gemeinsam").ToString.Trim]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Steuer_ID_Partner">[CurrentRow("Steuer_ID_Partner").ToString.Trim]</InArgument>
+                                            <InArgument x:TypeArguments="x:String" x:Key="Gueltig_ab">[CurrentRow("Gueltig_ab").ToString.Trim]</InArgument>
+                                        </ui:AddQueueItem.ItemInformation>
+                                    </ui:AddQueueItem>
+                                    <Assign DisplayName="Zaehler hinzugefuegt + 1" sap2010:WorkflowViewState.IdRef="Assign_4">
+                                        <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Int32">[intHinzugefuegt]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Int32">[intHinzugefuegt + 1]</InArgument>
+                                        </Assign.Value>
+                                    </Assign>
+                                </Sequence>
+                            </TryCatch.Try>
+                            <TryCatch.Catches>
+                                <Catch x:TypeArguments="s:Exception" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+                                    <ActivityAction x:TypeArguments="s:Exception">
+                                        <ActivityAction.Argument>
+                                            <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+                                        </ActivityAction.Argument>
+                                        <Sequence DisplayName="Catch" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                                            <If DisplayName="Referenz schon vorhanden?" sap2010:Annotation.AnnotationText="Orchestrator meldet doppelte Referenzen mit Fehlercode 1016. Alle anderen Fehler stoppen den Lauf." Condition="[exception.Message.Contains(&quot;Error code: 1016&quot;)]" sap2010:WorkflowViewState.IdRef="If_2">
+                                                <If.Then>
+                                                    <Sequence DisplayName="Ueberspringen und zaehlen" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                                                        <ui:LogMessage Level="Info" DisplayName="Log uebersprungen" Message="[&quot;Uebersprungen, Referenz schon in der Queue: &quot; &amp; strAuftragsID]" sap2010:WorkflowViewState.IdRef="LogMessage_2" />
+                                                        <Assign DisplayName="Zaehler uebersprungen + 1" sap2010:WorkflowViewState.IdRef="Assign_5">
+                                                            <Assign.To>
+                                                                <OutArgument x:TypeArguments="x:Int32">[intUebersprungen]</OutArgument>
+                                                            </Assign.To>
+                                                            <Assign.Value>
+                                                                <InArgument x:TypeArguments="x:Int32">[intUebersprungen + 1]</InArgument>
+                                                            </Assign.Value>
+                                                        </Assign>
+                                                    </Sequence>
+                                                </If.Then>
+                                                <If.Else>
+                                                    <Sequence DisplayName="Anderer Fehler" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                                                        <Rethrow DisplayName="Fehler weiterwerfen" sap2010:WorkflowViewState.IdRef="Rethrow_1" />
+                                                    </Sequence>
+                                                </If.Else>
+                                            </If>
+                                        </Sequence>
+                                    </ActivityAction>
+                                </Catch>
+                            </TryCatch.Catches>
+                        </TryCatch>
+                    </Sequence>
+                </ActivityAction>
+            </ui:ForEachRow.Body>
+        </ui:ForEachRow>
+        <ui:LogMessage Level="Info" DisplayName="Log Ergebnis" Message="[&quot;Dispatcher fertig: &quot; &amp; intHinzugefuegt.ToString &amp; &quot; hinzugefuegt, &quot; &amp; intUebersprungen.ToString &amp; &quot; uebersprungen&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_3" />
+    </Sequence>
+</Activity>

@@ -1,0 +1,193 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Tests_RunRuleTests" mva:VisualBasic.Settings="{x:Null}"
+xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib"
+xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+xmlns:sc="clr-namespace:System.Collections;assembly=System.Private.CoreLib"
+xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib"
+xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib"
+xmlns:ui="http://schemas.uipath.com/workflow/activities"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+sap2010:WorkflowViewState.IdRef="ActivityBuilder_1">
+    <TextExpression.NamespacesForImplementation>
+        <sco:Collection x:TypeArguments="x:String">
+            <x:String>System.Activities</x:String>
+            <x:String>System.Activities.Statements</x:String>
+            <x:String>System.Activities.Expressions</x:String>
+            <x:String>System.Activities.Validation</x:String>
+            <x:String>System.Activities.XamlIntegration</x:String>
+            <x:String>Microsoft.VisualBasic</x:String>
+            <x:String>Microsoft.VisualBasic.Activities</x:String>
+            <x:String>System</x:String>
+            <x:String>System.Collections</x:String>
+            <x:String>System.Collections.Generic</x:String>
+            <x:String>System.Collections.ObjectModel</x:String>
+            <x:String>System.Linq</x:String>
+            <x:String>UiPath.Core</x:String>
+            <x:String>UiPath.Core.Activities</x:String>
+            <x:String>System.Windows.Markup</x:String>
+        </sco:Collection>
+    </TextExpression.NamespacesForImplementation>
+    <TextExpression.ReferencesForImplementation>
+        <sco:Collection x:TypeArguments="AssemblyReference">
+            <AssemblyReference>System.Activities</AssemblyReference>
+            <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+            <AssemblyReference>System.Private.CoreLib</AssemblyReference>
+            <AssemblyReference>mscorlib</AssemblyReference>
+            <AssemblyReference>System</AssemblyReference>
+            <AssemblyReference>System.Linq</AssemblyReference>
+            <AssemblyReference>System.Core</AssemblyReference>
+            <AssemblyReference>System.Collections</AssemblyReference>
+            <AssemblyReference>System.Runtime</AssemblyReference>
+            <AssemblyReference>System.Xaml</AssemblyReference>
+            <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+        </sco:Collection>
+    </TextExpression.ReferencesForImplementation>
+    <Sequence DisplayName="Regeltests" sap2010:Annotation.AnnotationText="Ruft Pruefe_Auftrag.xaml fuer jeden Fall der Tabelle auf und vergleicht die Fehlercodes. Gleiche Faelle wie tests/test_rules.py. Wirft am Ende einen Fehler, wenn ein Fall abweicht." sap2010:WorkflowViewState.IdRef="Sequence_1">
+        <Sequence.Variables>
+            <Variable x:TypeArguments="scg:List(s:Object[])" Name="listFaelle" />
+            <Variable x:TypeArguments="x:Int32" Name="intFehler" Default="0" />
+        </Sequence.Variables>
+        <Assign DisplayName="Tabelle der Testfaelle" sap2010:Annotation.AnnotationText="Spalten: Name, Steuer_ID, Betrag, Gemeinsam, Steuer_ID_Partner, bestehende Summe, erwartete Codes (mit Komma getrennt, leer = gueltig)." sap2010:WorkflowViewState.IdRef="Assign_1">
+            <Assign.To>
+                <OutArgument x:TypeArguments="scg:List(s:Object[])">[listFaelle]</OutArgument>
+            </Assign.To>
+            <Assign.Value>
+                <InArgument x:TypeArguments="scg:List(s:Object[])">[New List(Of Object()) From {
+                    New Object() {"steuerid_gueltig_1", "86095742719", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_gueltig_2", "47036892816", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_gueltig_3", "65929970489", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_gueltig_4", "57549285017", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_gueltig_5", "25768131411", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_gueltig_pruefziffer_0", "10234567960", 800, "nein", "", 0, ""},
+                    New Object() {"steuerid_pruefziffer_falsch", "86095742718", 800, "nein", "", 0, "STEUERID_PRUEFZIFFER"},
+                    New Object() {"steuerid_zu_kurz", "8609574271", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_zu_lang", "860957427190", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_fuehrende_null", "06095742719", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_mit_buchstabe", "8609574271a", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_leer", "", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_keine_ziffer_doppelt", "12345678903", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_drei_gleiche_nebeneinander", "11123456789", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_zwei_ziffern_doppelt", "11223456789", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"steuerid_ziffer_viermal", "11112345678", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"einzel_gueltig", "86095742719", 800, "nein", "", 0, ""},
+                    New Object() {"limit_einzel", "86095742719", 1200, "nein", "", 0, "LIMIT_EINZEL"},
+                    New Object() {"einzel_genau_am_limit", "86095742719", 1000, "nein", "", 0, ""},
+                    New Object() {"limit_gesamt", "86095742719", 500, "nein", "", 600, "LIMIT_GESAMT"},
+                    New Object() {"gesamt_genau_am_limit", "86095742719", 400, "nein", "", 600, ""},
+                    New Object() {"limit_gesamt_nur_wenn_einzellimit_passt", "86095742719", 1200, "nein", "", 600, "LIMIT_EINZEL"},
+                    New Object() {"gemeinsam_gueltig", "86095742719", 2000, "ja", "47036892816", 0, ""},
+                    New Object() {"limit_gemeinsam", "86095742719", 2500, "ja", "47036892816", 0, "LIMIT_GEMEINSAM"},
+                    New Object() {"gemeinsam_limit_gesamt", "86095742719", 500, "ja", "47036892816", 1600, "LIMIT_GESAMT"},
+                    New Object() {"partner_fehlt", "86095742719", 800, "ja", "", 0, "PARTNER_FEHLT"},
+                    New Object() {"partner_pruefziffer_falsch", "86095742719", 800, "ja", "47036892817", 0, "PARTNER_STEUERID"},
+                    New Object() {"partner_zu_kurz", "86095742719", 800, "ja", "4703689281", 0, "PARTNER_STEUERID"},
+                    New Object() {"partner_wiederholung_falsch", "86095742719", 800, "ja", "11123456789", 0, "PARTNER_STEUERID"},
+                    New Object() {"partner_bei_einzelauftrag_nicht_geprueft", "86095742719", 800, "nein", "123", 0, ""},
+                    New Object() {"betrag_null", "86095742719", 0, "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_negativ", "86095742719", -100, "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_mit_cent", "86095742719", 800.5, "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_text_deutsches_format", "86095742719", "800,00", "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_text_buchstaben", "86095742719", "abc", "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_leer", "86095742719", "", "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_fehlt", "86095742719", Nothing, "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_wahrheitswert", "86095742719", True, "nein", "", 0, "BETRAG_UNGUELTIG"},
+                    New Object() {"betrag_ganze_zahl", "86095742719", 800, "nein", "", 0, ""},
+                    New Object() {"betrag_kommazahl_ohne_cent", "86095742719", 800.0, "nein", "", 0, ""},
+                    New Object() {"betrag_text_ziffern", "86095742719", "800", "nein", "", 0, ""},
+                    New Object() {"eigene_steuerid_pruefziffer", "86095742718", 800, "nein", "", 0, "STEUERID_PRUEFZIFFER"},
+                    New Object() {"eigene_steuerid_format", "123", 800, "nein", "", 0, "STEUERID_FORMAT"},
+                    New Object() {"alle_codes_reihenfolge_1", "86095742718", 2500, "ja", "", 0, "STEUERID_PRUEFZIFFER,PARTNER_FEHLT,LIMIT_GEMEINSAM"},
+                    New Object() {"alle_codes_reihenfolge_2", "123", 0, "ja", "1", 0, "STEUERID_FORMAT,BETRAG_UNGUELTIG,PARTNER_STEUERID"}
+                    }]</InArgument>
+            </Assign.Value>
+        </Assign>
+        <ui:ForEach x:TypeArguments="s:Object[]" DisplayName="Fuer jeden Testfall" sap2010:WorkflowViewState.IdRef="ForEach`1_1">
+            <ui:ForEach.Values>
+                <InArgument x:TypeArguments="sc:IEnumerable">[listFaelle]</InArgument>
+            </ui:ForEach.Values>
+            <ui:ForEach.Body>
+                <ActivityAction x:TypeArguments="s:Object[]">
+                    <ActivityAction.Argument>
+                        <DelegateInArgument x:TypeArguments="s:Object[]" Name="fall" />
+                    </ActivityAction.Argument>
+                    <Sequence DisplayName="Testfall ausfuehren" sap2010:WorkflowViewState.IdRef="Sequence_2">
+                        <Sequence.Variables>
+                            <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" Name="dictAuftrag" />
+                            <Variable x:TypeArguments="scg:List(x:String)" Name="listCodes" />
+                            <Variable x:TypeArguments="x:String" Name="strErhalten" />
+                            <Variable x:TypeArguments="x:String" Name="strErwartet" />
+                        </Sequence.Variables>
+                        <Assign DisplayName="Auftrag aus der Tabellenzeile bauen" sap2010:WorkflowViewState.IdRef="Assign_2">
+                            <Assign.To>
+                                <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[dictAuftrag]</OutArgument>
+                            </Assign.To>
+                            <Assign.Value>
+                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)">[New Dictionary(Of String, Object) From {{"Steuer_ID", fall(1)}, {"Betrag", fall(2)}, {"Gemeinsam", fall(3)}, {"Steuer_ID_Partner", fall(4)}}]</InArgument>
+                            </Assign.Value>
+                        </Assign>
+                        <ui:InvokeWorkflowFile DisplayName="Pruefe_Auftrag aufrufen" WorkflowFileName="Pruefe_Auftrag.xaml" UnSafe="False" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1">
+                            <ui:InvokeWorkflowFile.Arguments>
+                                <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Auftrag">[dictAuftrag]</InArgument>
+                                <InArgument x:TypeArguments="x:Int32" x:Key="in_BestehendeSumme">[CInt(fall(5))]</InArgument>
+                                <OutArgument x:TypeArguments="scg:List(x:String)" x:Key="out_Fehlercodes">[listCodes]</OutArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                        </ui:InvokeWorkflowFile>
+                        <ui:MultipleAssign DisplayName="Erhaltene und erwartete Codes" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+                            <ui:MultipleAssign.AssignOperations>
+                                <scg:List x:TypeArguments="ui:AssignOperation" Capacity="2">
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
+                                        <ui:AssignOperation.To>
+                                            <OutArgument x:TypeArguments="x:String">[strErhalten]</OutArgument>
+                                        </ui:AssignOperation.To>
+                                        <ui:AssignOperation.Value>
+                                            <InArgument x:TypeArguments="x:String">[String.Join(",", listCodes)]</InArgument>
+                                        </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                    <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
+                                        <ui:AssignOperation.To>
+                                            <OutArgument x:TypeArguments="x:String">[strErwartet]</OutArgument>
+                                        </ui:AssignOperation.To>
+                                        <ui:AssignOperation.Value>
+                                            <InArgument x:TypeArguments="x:String">[fall(6).ToString]</InArgument>
+                                        </ui:AssignOperation.Value>
+                                    </ui:AssignOperation>
+                                </scg:List>
+                            </ui:MultipleAssign.AssignOperations>
+                        </ui:MultipleAssign>
+                        <If DisplayName="Ergebnis wie erwartet?" Condition="[strErhalten = strErwartet]" sap2010:WorkflowViewState.IdRef="If_1">
+                            <If.Then>
+                                <Sequence DisplayName="Bestanden" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                                    <ui:LogMessage Level="Info" DisplayName="Log OK" Message="[&quot;OK      &quot; &amp; fall(0).ToString &amp; &quot;: [&quot; &amp; strErhalten &amp; &quot;]&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_1" />
+                                </Sequence>
+                            </If.Then>
+                            <If.Else>
+                                <Sequence DisplayName="Abweichung" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                                    <ui:LogMessage Level="Error" DisplayName="Log FEHLER" Message="[&quot;FEHLER  &quot; &amp; fall(0).ToString &amp; &quot;: erwartet [&quot; &amp; strErwartet &amp; &quot;], erhalten [&quot; &amp; strErhalten &amp; &quot;]&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_2" />
+                                    <Assign DisplayName="Fehlerzaehler + 1" sap2010:WorkflowViewState.IdRef="Assign_3">
+                                        <Assign.To>
+                                            <OutArgument x:TypeArguments="x:Int32">[intFehler]</OutArgument>
+                                        </Assign.To>
+                                        <Assign.Value>
+                                            <InArgument x:TypeArguments="x:Int32">[intFehler + 1]</InArgument>
+                                        </Assign.Value>
+                                    </Assign>
+                                </Sequence>
+                            </If.Else>
+                        </If>
+                    </Sequence>
+                </ActivityAction>
+            </ui:ForEach.Body>
+        </ui:ForEach>
+        <ui:LogMessage Level="Info" DisplayName="Log Zusammenfassung" Message="[&quot;Regeltests: &quot; &amp; listFaelle.Count.ToString &amp; &quot; Faelle, &quot; &amp; intFehler.ToString &amp; &quot; Fehler&quot;]" sap2010:WorkflowViewState.IdRef="LogMessage_3" />
+        <If DisplayName="Gab es Fehler?" Condition="[intFehler &gt; 0]" sap2010:WorkflowViewState.IdRef="If_2">
+            <If.Then>
+                <Sequence DisplayName="Lauf als fehlgeschlagen beenden" sap2010:WorkflowViewState.IdRef="Sequence_5">
+                    <Throw DisplayName="Fehler werfen" Exception="[New Exception(&quot;Regeltests fehlgeschlagen: &quot; &amp; intFehler.ToString &amp; &quot; von &quot; &amp; listFaelle.Count.ToString &amp; &quot; Faellen&quot;)]" sap2010:WorkflowViewState.IdRef="Throw_1" />
+                </Sequence>
+            </If.Then>
+        </If>
+    </Sequence>
+</Activity>

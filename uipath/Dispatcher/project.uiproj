@@ -1,0 +1,6 @@
+{
+  "Name": "Musterbank_Dispatcher",
+  "ProjectType": "Process",
+  "Description": "Liest die Eingangsdatei und legt je Auftrag ein Queue Item an.",
+  "MainFile": "Main.xaml"
+}

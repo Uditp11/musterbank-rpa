@@ -1,0 +1,31 @@
+{
+  "$schema": "https://cloud.uipath.com/draft/2024-12/entry-point",
+  "entryPoints": [
+    {
+      "filePath": "Main.xaml",
+      "uniqueId": "63ebb2a6-7acf-4a5d-938c-c867bdb19395",
+      "type": "process",
+      "input": {
+        "type": "object",
+        "properties": {
+          "in_Eingabedatei": {
+            "type": "string",
+            "x-default-expression": "\"..\\..\\data\\Eingang_Batch1.xlsx\"",
+            "default": "..\\..\\data\\Eingang_Batch1.xlsx"
+          },
+          "in_OrchestratorOrdner": {
+            "type": "string",
+            "x-default-expression": "\"Musterbank_Test\"",
+            "default": "Musterbank_Test"
+          },
+          "in_QueueName": {
+            "type": "string",
+            "x-default-expression": "\"FSA_Eingang\"",
+            "default": "FSA_Eingang"
+          }
+        },
+        "required": []
+      }
+    }
+  ]
+}

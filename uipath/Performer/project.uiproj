@@ -1,0 +1,6 @@
+{
+  "Name": "Musterbank_Performer",
+  "ProjectType": "Process",
+  "Description": "Verarbeitet Freistellungsauftraege aus der Queue FSA_Eingang (REFramework).",
+  "MainFile": "Main.xaml"
+}
